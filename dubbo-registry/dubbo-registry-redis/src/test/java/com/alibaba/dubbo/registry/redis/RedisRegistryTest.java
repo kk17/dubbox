@@ -20,7 +20,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.registry.NotifyListener;
 
 /**
  * RedisRegistryTest
@@ -30,11 +29,11 @@ import com.alibaba.dubbo.registry.NotifyListener;
 public class RedisRegistryTest {
 
     String            service     = "com.alibaba.dubbo.test.injvmServie";
-    URL               registryUrl = URL.valueOf("redis://239.255.255.255/");
+    URL               registryUrl = URL.valueOf("redis://127.0.0.1:6379?password=foobared");
     URL               serviceUrl  = URL.valueOf("redis://redis/" + service
                                                 + "?notify=false&methods=test1,test2");
     URL               consumerUrl = URL.valueOf("redis://consumer/" + service + "?notify=false&methods=test1,test2");
-    // RedisRegistry registry    = new RedisRegistry(registryUrl);
+     RedisRegistry registry    = new RedisRegistry(registryUrl);
 
     /**
      * @throws java.lang.Exception
@@ -48,7 +47,7 @@ public class RedisRegistryTest {
      */
     @Before
     public void setUp() throws Exception {
-        //registry.register(service, serviceUrl);
+//        registry.register(serviceUrl);
     }
 
     /**
@@ -56,18 +55,18 @@ public class RedisRegistryTest {
      */
     @Test
     public void testRegister() {
-        /*List<URL> registered = null;
-        // clear first
-        registered = registry.getRegistered(service);
-
-        for (int i = 0; i < 2; i++) {
-            registry.register(service, serviceUrl);
-            registered = registry.getRegistered(service);
-            assertTrue(registered.contains(serviceUrl));
-        }
-        // confirm only 1 regist success;
-        registered = registry.getRegistered(service);
-        assertEquals(1, registered.size());*/
+//        Set<URL> registered = null;
+//        // clear first
+//        registered = registry.getRegistered();
+//
+//        for (int i = 0; i < 2; i++) {
+//            registry.register(serviceUrl);
+//            registered = registry.getRegistered();
+//            assertTrue(registered.contains(serviceUrl));
+//        }
+//        // confirm only 1 regist success;
+//        registered = registry.getRegistered();
+//        assertEquals(1, registered.size());
     }
 
     /**

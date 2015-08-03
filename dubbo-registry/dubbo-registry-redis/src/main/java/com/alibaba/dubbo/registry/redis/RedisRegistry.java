@@ -104,6 +104,7 @@ public class RedisRegistry extends FailbackRegistry {
         if (url.getParameter("min.evictable.idle.time.millis", 0) > 0)
             config.minEvictableIdleTimeMillis = url.getParameter("min.evictable.idle.time.millis", 0);
         
+        
         String cluster = url.getParameter("cluster", "failover");
         if (! "failover".equals(cluster) && ! "replicate".equals(cluster)) {
         	throw new IllegalArgumentException("Unsupported redis cluster: " + cluster + ". The redis cluster only supported failover or replicate.");
@@ -127,8 +128,8 @@ public class RedisRegistry extends FailbackRegistry {
                 host = address;
                 port = DEFAULT_REDIS_PORT;
             }
-            this.jedisPools.put(address, new JedisPool(config, host, port, 
-                    url.getParameter(Constants.TIMEOUT_KEY, Constants.DEFAULT_TIMEOUT)));
+            this.jedisPools.put(address, new JedisPool(config, host, port,
+                    url.getParameter(Constants.TIMEOUT_KEY, Constants.DEFAULT_TIMEOUT), url.getParameter("password"), 0));
         }
         
         this.reconnectPeriod = url.getParameter(Constants.REGISTRY_RECONNECT_PERIOD_KEY, Constants.DEFAULT_REGISTRY_RECONNECT_PERIOD);
